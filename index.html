@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For My Pudkuu 💜</title>
 
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #E6E6FA, #D8BFD8);
+    text-align:center;
+    overflow:hidden;
+}
+
+/* Floating Hearts */
+.heart {
+    position:absolute;
+    color:#ff69b4;
+    animation: floatUp 6s linear infinite;
+    font-size:20px;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity:1; }
+    100% { transform: translateY(-10vh); opacity:0; }
+}
+
+/* Fade */
+.fade {
+    animation: fadeIn 3s ease-in forwards;
+    opacity:0;
+}
+
+@keyframes fadeIn {
+    to { opacity:1; }
+}
+
+/* Glow Text */
+.glow {
+    font-size:40px;
+    color:#800080;
+    text-shadow: 0 0 10px #ba55d3, 0 0 20px #da70d6;
+}
+
+/* Hidden */
+.hidden {
+    display:none;
+}
+
+.container {
+    margin-top:80px;
+    padding:20px;
+}
+
+button {
+    padding:10px 20px;
+    background:#9370DB;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+input {
+    padding:8px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    text-align:center;
+}
+
+/* Shake */
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    top: 0;
+    animation: confettiFall 4s linear forwards;
+}
+
+@keyframes confettiFall {
+    to { transform: translateY(100vh) rotate(720deg); }
+}
+
+img {
+    width:200px;
+    margin-top:20px;
+}
+
+#typeText {
+    width:70%;
+    margin:auto;
+    font-size:18px;
+    min-height:60px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating Hearts Script Generated -->
+<script>
+for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💜";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(heart);
+}
+</script>
+
+<div id="intro" class="container fade">
+    <h1 class="glow">Sorry Pudkuu 💜</h1>
+    <img src="teddy.png">
+</div>
+
+<div id="message" class="container hidden">
+    <div id="typeText"></div>
+    <br>
+    <button onclick="showPassword()">Something 💌</button>
+</div>
+
+<div id="passwordSection" class="container hidden">
+    <p><b>Pass is my birthmonth and date</b></p>
+    <input type="password" id="passInput" placeholder="Enter password">
+    <br><br>
+    <button onclick="checkPass()">Unlock 💜</button>
+    <p id="wrong" style="color:red;"></p>
+</div>
+
+<div id="finalSection" class="container hidden">
+    <h1 class="glow fade">Sorry Pudkuu 💜</h1>
+    <audio id="song" src="song.mp3"></audio>
+    <img id="finalImage" src="finalimage.jpg" class="hidden">
+</div>
+
+<script>
+
+// Show message after intro
+setTimeout(function(){
+    document.getElementById("message").classList.remove("hidden");
+    typeWriter();
+},4000);
+
+// Typewriter Effect
+var text = "Your apology message goes here... Replace this with your real feelings 💜";
+var i=0;
+function typeWriter(){
+    if(i<text.length){
+        document.getElementById("typeText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,40);
+    }
+}
+
+function showPassword(){
+    document.getElementById("passwordSection").classList.remove("hidden");
+}
+
+function checkPass(){
+    var entered=document.getElementById("passInput");
+    var correct="yourpassword"; // CHANGE THIS
+
+    if(entered.value===correct){
+        document.getElementById("passwordSection").classList.add("hidden");
+        document.getElementById("finalSection").classList.remove("hidden");
+
+        createConfetti();
+
+        var song=document.getElementById("song");
+        song.play();
+
+        song.onended=function(){
+            document.getElementById("finalImage").classList.remove("hidden");
+        }
+
+    }else{
+        entered.classList.add("shake");
+        document.getElementById("wrong").innerText="Wrong password 🥺";
+        setTimeout(()=>entered.classList.remove("shake"),500);
+    }
+}
+
+// Confetti Effect
+function createConfetti(){
+    for(let i=0;i<50;i++){
+        let conf=document.createElement("div");
+        conf.className="confetti";
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.backgroundColor=
+            "hsl("+Math.random()*360+",100%,50%)";
+        conf.style.animationDuration=(2+Math.random()*3)+"s";
+        document.body.appendChild(conf);
+    }
+}
+
+</script>
+
+</body>
+</html>
