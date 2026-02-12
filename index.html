@@ -115,7 +115,7 @@ img {
 
 <body>
 
-<!-- Floating Hearts Script Generated -->
+<!-- Floating Hearts -->
 <script>
 for(let i=0;i<20;i++){
     let heart=document.createElement("div");
@@ -177,7 +177,7 @@ function showPassword(){
 
 function checkPass(){
     var entered=document.getElementById("passInput");
-    var correct="1201"; // CHANGE THIS
+    var correct="1201"; // CHANGE IF NEEDED
 
     if(entered.value===correct){
         document.getElementById("passwordSection").classList.add("hidden");
@@ -186,11 +186,26 @@ function checkPass(){
         createConfetti();
 
         var song=document.getElementById("song");
+
+        // Volume Fade-In Effect
+        song.volume = 0;
         song.play();
 
-        song.onended=function(){
-            document.getElementById("finalImage").classList.remove("hidden");
-        }
+        var fadeAudio = setInterval(function(){
+            if(song.volume < 0.95){
+                song.volume += 0.05;
+            } else {
+                song.volume = 1;
+                clearInterval(fadeAudio);
+            }
+        }, 200);
+
+        // Show final image after 3 seconds (while music keeps playing)
+        setTimeout(function(){
+            var img = document.getElementById("finalImage");
+            img.classList.remove("hidden");
+            img.classList.add("fade");
+        },3000);
 
     }else{
         entered.classList.add("shake");
